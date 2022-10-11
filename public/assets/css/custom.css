@@ -1,0 +1,32 @@
+.trash{
+  color:red;
+}
+
+.new{
+  letter-spacing: -0.025rem;
+  text-transform: uppercase;
+  padding: 0.5rem 2rem;
+  font-size: 0.80rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+}
+
+.t-title{
+  font-size: 1rem !important;
+}
+
+
+.highlight {
+  background: #67e8f9;
+  min-height: 30px;
+}
+
+.handle {
+  display: inline-block;
+  cursor: move;
+  
+}
+
+.start_date{
+  font-weight: 900 !important;
+}

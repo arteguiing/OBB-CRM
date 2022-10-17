@@ -1,59 +1,16 @@
 <main wire:id="I4CniArDrKTnu1hSScvB" class="main-content">
     <div class="container-fluid py-4">
-        <div class="row mb-5">
-
-            <!-- <div class="col-lg-4 mt-lg-0 mt-4">
-
-                <div class="card mt-1" id="basic-info">
-                    <div class="card-header">
-                        <h5>Task</h5>
-                    </div>
-                    <div class="card-body pt-0">
-                        
-                        <div class="row mt-2">
-                            <div class="col-12">
-                                <label class="form-label">Company Name</label>
-                                <div class="input-group">
-                                    <select id="company" class="form-select" wire:model="companyId">
-                                        @foreach ($companies as $company)
-                                        <option value=" {{$company->id}}" wire:click="selectedCompany">{{$company->company_name}} </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-                            {{$companyId}}
-                        </div>
-
-                        <div class="row mt-2">
-                            <div class="col-6">
-                                <label class="form-label">Owner</label>
-                                <div class="input-group">
-                                    <input class="form-control" type="text" wire:model=" {{ $company->contact_person }}">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label">Contacts</label>
-                                <div class="input-group">
-                                    <input class="form-control" type="text" value="   ">
-
-                                </div>
-                            </div>
-                        </div>
-
-                       
-
-                    </div>
-                </div>
-
-
-            </div> -->
+        <nav aria-label="breadcrumb me-5">
+            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{ route('building-administration') }}">Building Administration</a></li>
+                <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Create New Task</li>
+            </ol>
+        </nav>
+        <div class="row mb-2 mt-2">
             <div class="col-lg-12 mt-lg-0 mt-4">
 
-                <div class="card mt-1" id="basic-info">
-                    <div class="card-header">
-                        <h5>Task</h5>
-                    </div>
+                <div class="card mt-3" id="basic-info">
+
                     <div class="card-body pt-0">
 
                         <div class="row mt-2">
@@ -63,15 +20,20 @@
                                 <div class="row">
                                     <div class="col-10" style="padding-right:0;">
                                         <div class="input-group ">
-                                            <select id="company" class="form-select reset-select">
-                                                <option value="0">Select Company</option>
+                                            <select id="company" class="form-select reset-select companyName">
+                                                <!-- <option value="0">Select Company</option> -->
+                                                @if (count($companies) > 0)
+                                                <option disabled selected>Select Company</option>
                                                 @foreach ($companies as $company)
-                                                <option value=" {{$company->id}}">{{$company->company_name}} </option>
+                                                <option value="{{$company->id}}">{{$company->company_name}} </option>
                                                 @endforeach
+                                                @else
+                                                <option value="0" disabled>Please Add new Company</option>
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
-                                    <diV class="col-2" style="padding-left:2px;">
+                                    <diV class="col-2 text-center" style="padding-left:2px;">
                                         <button wire:click.prevent="showModal" type="button" class="btn btn btn-outline-info">Add</button>
                                     </diV>
                                 </div>
@@ -81,8 +43,15 @@
                                 <label class="form-label">Project Name</label>
                                 <div class="input-group ">
 
-                                    <select id="project_name" class="form-select ">
-                                        <option value="Project 1" selected>Project 1 </option>
+                                    <select id="project_name" class="form-select projectName ">
+                                        @if (count($projects) > 0)
+                                        <option disabled selected>Select Project</option>
+                                        @foreach ($projects as $project)
+                                        <option value="{{$project->id}}">{{$project->project_name}}</option>
+                                        @endforeach
+                                        @else
+                                        <option disabled>Please Add new Project</option>
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -104,51 +73,54 @@
                         </div>
 
                         <div class="row mt-2">
-                            <div class="col-lg-6 col-xl-6 col-md-12">
-                                <label class="form-label">Task Name</label>
-                                <div class="input-group">
-                                    <input id="task_name" class="form-control reset" type="text">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6 col-xl-6 col-md-12">
-                                <label class="form-label">Category <span style="color:red"> (You can Add Category if not available)</span></label>
+                            <div class="col-lg-6 col-xl-6 col-md-12 mt-2">
+                                <label class="form-label">Stage</label>
                                 <div class="row">
-                                    <div class="col-10" style="padding-right:0;">
+                                    <div class="col-12" style="padding-right:0;">
                                         <div class="input-group ">
-                                            <select id="project_name" class="form-select ">
-                                                <option value="Category 1" selected>Category 1 </option>
+                                            <select id="category" class="form-select reset-select category ">
+                                                @if (count($categories) > 0)
+                                                <option selected disabled>Select Stage</option>
+                                                @foreach ($categories as $category)
+                                                <option value=" {{$category->id}}">{{$category->stage_name}}</option>
+                                                @endforeach
+                                                @else
+                                                <option disabled>Please Add new Category</option>
+                                                @endif
+
                                             </select>
                                         </div>
                                     </div>
-                                    <diV class="col-2" style="padding-left:2px;">
-                                        <button wire:click.prevent="showModal" type="button" class="btn btn btn-outline-info">Add</button>
-                                    </diV>
+
                                 </div>
                             </div>
 
-
-
+                            <div class="col-lg-6 col-xl-6 col-md-12 mt-2">
+                                <label class="form-label">Task Name</label>
+                                <div class="input-group">
+                                    <input id="task_name" class="form-control reset taskName" type="text" value="Dig Pool">
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row mt-2">
                             <div class="col-4">
                                 <label class="form-label">Send Date</label>
                                 <div class="input-group">
-                                    <input class="form-control reset" type="date" value="s" id="send_date">
+                                    <input class="form-control reset" type="date" id="send_date">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <label class="form-label">Due Date</label>
                                 <div class="input-group">
-                                    <input class="form-control reset" type="date" value="" id="due_date">
+                                    <input class="form-control reset" type="date" id="due_date">
                                 </div>
                             </div>
 
                             <div class="col-4">
                                 <label class="form-label">Received Date</label>
                                 <div class="input-group">
-                                    <input class="form-control reset" type="date" value="" id="received_date">
+                                    <input class="form-control reset" type="date" id="received_date">
                                 </div>
                             </div>
 
@@ -162,50 +134,44 @@
 
                                     <input type="file" name="image" placeholder="" id="image" class="form-control form-control-sm">
                                 </div>
-                                <div class="col-2" style="padding-left:1px;">
+                                <div class="col-2" style="padding-left:2.5px;">
                                     <button type=" submit" class="btn btn-outline-success btn-sm" id="submit">Upload</button>
                                 </div>
                                 <div class="col-6">
                                     <div class=" col-md-12 d-flex justify-content-end">
 
-                                    <button id="save-task" type="button" class="btn bg-gradient-dark  mb-0" id="submit">+&nbsp; Save Task</button>
+                                        <button id="save-task" type="button" class="btn bg-gradient-dark  mb-0" id="submit">+&nbsp; Save Task</button>
+                                    </div>
                                 </div>
                             </div>
-                    </div>
-                    </form>
-                    <div class="row mt-2">
-                        <div class="col-6">
-                            <label class="form-label">Uploaded File</label>
-                            <table class="table align-items-center justify-content-center mb-0">
-                                <thead>
-                                    <tr>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">File name</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Action</th>
+                        </form>
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <label class="form-label">Uploaded File</label>
+                                <table class="table align-items-center justify-content-center mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">File name</th>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Action</th>
 
-                                    </tr>
-                                </thead>
-                                <tbody id="media">
+                                        </tr>
+                                    </thead>
+                                    <tbody id="media">
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
-
                     </div>
                 </div>
-
-
-
             </div>
         </div>
 
 
     </div>
-
-
-
-    </div>
-
-
+    <!-- 
+COMPANY MODAL -->
     <div class="row">
         <div class="col-md-4">
             <div wire:ignore.self class="modal fade" id="companyModal" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
@@ -278,6 +244,53 @@
         </div>
     </div>
 
+    <!-- CATEGORY MODAL -->
+    <div class="row">
+        <div class="col-md-4">
+            <div wire:ignore.self class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+                <div class="modal-dialog  modal- modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <h6 class="modal-title" id="modal-title-default">New Category</h6>
+
+
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" wire:click="closeModal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <form wire:submit.prevent="saveCategory">
+                                <div class="card-body p-3">
+                                    <div class="row mt-2">
+                                        <div class="col-12">
+                                            <label class="form-label">Category Name:</label>
+                                            <div class="input-group">
+                                                <input class="form-control" type="text" wire:model="category_id">
+                                                @error('category_id') <span class="text-danger">{{ $message }}</span> @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn bg-gradient-secondary" wire:click="closeModal" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn bg-gradient-dark">
+
+                                        <span>Save Category</span>
+
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     </div>
     <script type="text/javascript">
@@ -295,15 +308,11 @@
                     success: function(res) {
                         $('#contact_person').val(res.contact_person);
                         $('#phone').val(res.phone);
-                        // console.log(res);
+                        console.log(res);
                     }
                 });
             });
 
-
-            $("#save-task").click(function() {
-
-            });
 
 
         })
@@ -360,15 +369,21 @@
             // Save Task button
             $("#save-task").on("click", function() {
 
-                let companyName = $('#company').find(":selected").text(),
+                let companyName = $('#company').val(),
                     contactPerson = $('#contact_person').val(),
                     phone = $('#phone').val(),
                     projectName = $('#project_name').val(),
                     taskName = $('#task_name').val(),
+                    category = $('#category').val(),
                     sendDate = $("#send_date").val(),
                     dueDate = $("#due_date").val(),
                     receivedDate = $("#received_date").val(),
                     taskId = $("#task_id").val();
+
+                $(".reset").removeClass("is-invalid");
+                $(".reset-select").removeClass("is-invalid");
+
+
 
                 $.ajax({
                     url: APP_URL + "/save-task",
@@ -382,6 +397,7 @@
                         "dueDate": dueDate,
                         "receivedDate": receivedDate,
                         "taskName": taskName,
+                        "category": category,
                         "taskId": taskId
                     },
                     success: function(response) {
@@ -398,6 +414,13 @@
                             toast: true,
                             timer: 3000
                         })
+                    },
+                    error: function(response) {
+
+
+                        for (var x in response.responseJSON.errors) {
+                            $('.' + x).addClass("is-invalid");
+                        }
                     }
                 });
 
@@ -458,6 +481,16 @@
 
         })
 
+        window.addEventListener('show-modal-category', event => {
+            $('#categoryModal').modal('show');
+
+        })
+
+        window.addEventListener('close-modal-category', event => {
+            $('#categoryModal').modal('hide');
+
+        })
+
         window.addEventListener('close-modal', event => {
             $('#companyModal').modal('hide');
 
@@ -473,7 +506,7 @@
                 icon: e.detail.icon,
                 iconColor: e.detail.iconColor,
                 toast: true,
-                timer: 1500,
+                timer: 3000,
                 position: 'top-right',
                 timerProgressBar: true,
                 showConfirmButton: false,

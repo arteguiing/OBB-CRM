@@ -5,23 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
-class Task extends Model
+class SiteSupervisor extends Model
 {
     use HasFactory;
 
-    public $table = "tasks";
+    public $table = "site_supervisor";
 
     protected $fillable = [
         'task_name',
-        'company_id',
-        'contact_person',
-        'phone',
-        'project_id',
-        'task_id',
-        'category_id',
+        'owner_id',
+        'stage_id',
+        'order_status',
+        'duration',
         'sort_id',
-        'start'
-        
+        'start_date',
+        'end_date',
     ];
 }

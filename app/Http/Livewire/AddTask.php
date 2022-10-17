@@ -3,15 +3,17 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Company as Companies;
+use App\Models\Categories;
+use App\Models\Projects;
 
 class AddTask extends Component
 {
     public $companyId = null; 
-    public $companies = null;
     public $selectedCompany = null;
     public $tasks = null;
+    public $currentUrl;
 
-    public $company_name, $address, $email, $phone, $owner_id, $selected_id;
+    public $company_name, $address, $email, $phone, $owner_id, $selected_id,$category_id;
     public $contact_person = null;
 
     protected $rules = [
@@ -22,7 +24,14 @@ class AddTask extends Component
 
     public function render()
     {
-        return view('livewire.add-task');
+       
+        $companies =  Companies::where('owner_id', auth()->user()->owner_id)->get();
+        $categories =  Categories::all();
+        $projects =  Projects::all();
+
+        return view('livewire.add-task',['categories' => $categories,
+            'companies' => $companies,
+            'projects' => $projects]);
     }
 
     public function showModal()
@@ -30,6 +39,12 @@ class AddTask extends Component
         $this->showEditModal = false;
         $this->resetInput();
         $this->dispatchBrowserEvent('show-modal');
+    }
+
+    public function showModalCategory()
+    {
+      
+        $this->dispatchBrowserEvent('show-modal-category');
     }
 
     public function resetInput()
@@ -65,23 +80,42 @@ class AddTask extends Component
         return redirect()->to('/add-task');
     }
 
+
+
     public function closeModal()
     {
         $this->resetInput();
     }
 
-    public function mount(){
+    public function saveCategory()
+    {
+      //  $validatedData = $this->validate();
 
-         $this->companies = Companies::all();
-      
+        Categories::create([
+            'stage_name' => $this->category_id
+        ]);
+
+
+        $this->dispatchBrowserEvent('close-modal-category');
+        $this->dispatchBrowserEvent('success', [
+            'title' => 'New Category Created!',
+            'icon' => 'success',
+            'iconColor' => 'green'
+        ]);
     }
+
+ 
 
 
     public function selectedCompany()
     {
         // $this->selectedCompany =Companies::where('id', $company_id)->get();
         $post = Companies::find($this->companyID);
-        $this->selectedCompany = $post;
+        $this->selectedCompany = $post; 
        
+    }
+    public function mount()
+    {
+        $this->currentUrl = url()->current();
     }
 }

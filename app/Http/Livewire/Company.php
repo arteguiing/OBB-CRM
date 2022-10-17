@@ -75,10 +75,7 @@ class Company extends Component
         $this->showEditModal = false;
         $this->resetInput();
         $this->dispatchBrowserEvent('show-modal');
-       
     }
-
- 
 
     public function saveCompany()
     {

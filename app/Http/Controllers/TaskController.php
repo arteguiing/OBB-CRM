@@ -5,6 +5,9 @@ use Illuminate\Http\Request;
 
 use App\Models\Task;
 use App\Models\Media;
+use App\Models\Categories;
+use App\Models\Notes;
+use DB;
 use Validator;
 class TaskController extends Controller
 
@@ -15,24 +18,31 @@ class TaskController extends Controller
             'projectName' => 'required',
             'contactPerson' => 'required',
             'taskName' => 'required',
+            'companyName' => 'required',
+            'category' => 'required',
         ]);
+
+        $lastID = Task::where('owner_id', auth()->user()->owner_id)->max('sort_id');
 
         //return $request->all();
         if ($validator->fails()) {
-            return response()->json(["status" => "error", "errors" => $validator->messages()]);
+            return response()->json(["status" => "error", "errors" => $validator->messages()],404);
         } else {
             $task = new Task();
             $task->task_name = $request->task_name;
-            $task->company_name = $request->companyName;
-            $task->project_name = $request->projectName;
+            $task->company_id = $request->companyName;
+            $task->project_id = $request->projectName;
             $task->contact_person = $request->contactPerson;
+            $task->phone = $request->phone;
             $task->task_name = $request->taskName;
             $task->task_id = $request->taskId;
             $task->send_date = $request->sendDate;
+            $task->start = $request->sendDate;
             $task->due_date = $request->dueDate;
             $task->received_date = $request->receivedDate;
             $task->owner_id = auth()->user()->owner_id;
-            
+            $task->category_id = $request->category;
+            $task->sort_id = $lastID+1;
             $task->save();
         }   
     }
@@ -69,18 +79,19 @@ class TaskController extends Controller
         return $tasks;
     }
 
-    public function updateOrder(Request $request)
-    {
-        if ($request->has('ids')) {
-            $arr = explode(',', $request->input('ids'));
+   
 
-            foreach ($arr as $sortOrder => $id) {
-                $menu = Task::find($id);
-                $menu->sort_id = $sortOrder;
-                $menu->save();
-            }
-            return ['success' => true, 'message' => 'Updated'];
-        }
+    public function test(){
+
+
+
+        $events = DB::table('tasks')
+            ->select('task_id', 'task_name', 'send_date')
+            ->get();
+
+        return $events;
+
+
     }
 
    

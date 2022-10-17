@@ -31,22 +31,51 @@
             <li class="nav-item pb-2">
                 <a class="nav-link {{ Route::currentRouteName() == 'qoutes-budgetting'  ? 'active' : '' }}" href="{{ route('qoutes-budgetting') }}">
                     <i class="fa fa-sticky-note-o" aria-hidden="true"></i>
-                    <span class="nav-link-text ms-1">QUOTES & BUDGETING</span>
+                    <span class="nav-link-text ms-1">Qutes & Budgetting</span>
                 </a>
             </li>
 
-            <li class="nav-item pb-2">
+            <!-- <li class="nav-item pb-2">
                 <a class="nav-link {{ Route::currentRouteName() == 'site-supervisor' ? 'active' : '' }}" href="{{ route('site-supervisor') }}">
                     <i class="fa fa-user-secret" aria-hidden="true"></i>
-                    <span class="nav-link-text ms-1">SITESUPERVISOR</span>
+                    <span class="nav-link-text ms-1">Site Supervisor</span>
                 </a>
+            </li> -->
+            <li class="nav-item">
+                <!-- <a data-bs-toggle="collapse" href="#applicationsExamples" class="nav-link" aria-controls="applicationsExamples" role="button" aria-expanded="true">
+                    <i class="fa fa-user-secret" aria-hidden="true"></i>
+                    <span class="nav-link-text ms-1">Site Supervisor</span>
+                </a> -->
+                <a data-bs-toggle="collapse" href="#applicationsExamples" class="nav-link {{ Route::currentRouteName() == 'site-supervisor' ? 'active' : '' }}" aria-controls="applicationsExamples" role="button" aria-expanded="true">
+                    <i class="fa fa-user-secret" aria-hidden="true"></i>
+                    <span class="nav-link-text ms-1">Site Supervisor</span>
+                </a>
+                <div class="collapse {{ Route::currentRouteName() == 'site-supervisor' ? 'show' : '' }}" id="applicationsExamples" style="">
+                    <ul class="nav ms-4 ps-3">
+                        <li class="nav-item ">
+                            <a class="nav-link {{ Route::currentRouteName() == 'site-supervisor' ? 'active' : '' }}" href="{{ route('site-supervisor') }}">
+                                <span class="sidenav-mini-icon"> K </span>
+                                <span class="sidenav-normal"> Task List </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link " href="../../../pages/applications/wizard.html">
+                                <span class="sidenav-mini-icon"> W </span>
+                                <span class="sidenav-normal">Gannt Chart </span>
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </div>
+
             </li>
-            <li class="nav-item pb-2">
+            <!-- <li class="nav-item pb-2">
                 <a class="nav-link {{ Route::currentRouteName() == 'user-management' ? 'active' : '' }}" href="{{ route('user-management') }}">
                     <i class="fa fa-user-o" aria-hidden="true"></i>
                     <span class="nav-link-text ms-1">User Management</span>
                 </a>
-            </li>
+            </li> -->
             <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'user-profile' ? 'active' : '' }}" href="{{ route('user-profile') }}">
                     <i class="fa fa-wrench" aria-hidden="true"></i>

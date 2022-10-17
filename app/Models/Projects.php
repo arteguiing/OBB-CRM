@@ -5,12 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Event extends Model
+class Projects extends Model
 {
     use HasFactory;
-    
 
-     protected $fillable = [
-        'title', 'start', 'end'
+    public $table = "projects";
+
+    protected $fillable = [
+        'project_name',
+        'owner_id',
+
     ];
 }

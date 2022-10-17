@@ -3,29 +3,31 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use App\Models\Task;
 use App\Models\Event;
+use DB;
 
 class Calendar extends Component
 {
     public $events = '';
 
-    public function getevent()
+    public function getevent()  
     {       
-        $events = Event::select('id','title','start')->get();
+        $events = Task::select('id','task_name','start')->get();
 
         return  json_encode($events);
     }
 
     public function addevent($event)
     {
-        $input['title'] = $event['title'];
+        $input['task_name'] = $event['task_name'];
         $input['start'] = $event['start'];
-        Event::create($input);
+        Task::create($input);
     }
 
     public function eventDrop($event, $oldEvent)
     {
-      $eventdata = Event::find($event['id']);
+      $eventdata = Task::find($event['id']);
       $eventdata->start = $event['start'];
       $eventdata->save();
     }
@@ -33,9 +35,10 @@ class Calendar extends Component
 
     public function render()
     {
-        
-
-        $events = Event::select('id','title','start')->get();
+        //$events = Event::select('id','title', 'start')->get();
+        $events = DB::table('tasks')
+        ->select('task_id','task_name as title','start')
+        ->get();
 
         $this->events = json_encode($events);
 

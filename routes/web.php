@@ -23,7 +23,7 @@ use App\Models\Event;
 
 use App\Http\Livewire\LaravelExamples\UserProfile;
 use App\Http\Livewire\LaravelExamples\UserManagement;
-
+use App\Http\Controllers\CalenderController;
 use Illuminate\Http\Request;
 
 Route::get('/', function() {
@@ -57,7 +57,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/dropzone/fetch', [App\Http\Controllers\TaskController::class, 'fetch']);
     Route::get('/dropzone/delete', [App\Http\Controllers\TaskController::class, 'delete']);
 
+    Route::get('/chart', \App\Http\Livewire\Chart::class)->name('chart');
 
+
+
+    Route::get('fullcalender', [App\Http\Controllers\CalendarController::class, 'index']);
+     Route::post('fullcalenderAjax', [App\Http\Controllers\CalendarController::class, 'ajax']);
+
+
+
+
+    
 
 
 
@@ -72,6 +82,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/rtl', Rtl::class)->name('rtl');
     Route::get('/laravel-user-profile', UserProfile::class)->name('user-profile');
     Route::get('/laravel-user-management', UserManagement::class)->name('user-management');
+
+
+    Route::get('/test', [App\Http\Controllers\TaskController::class, 'test']);
     
 });
 

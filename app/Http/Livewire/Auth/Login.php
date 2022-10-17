@@ -18,7 +18,7 @@ class Login extends Component
 
     public function mount() {
         if(auth()->user()){
-            redirect('/dashboard');
+            redirect('/calendar');
         }
          $this->fill(['email' => 'admin@admin.com', 'password' => 'secret']);
     }

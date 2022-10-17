@@ -26,12 +26,10 @@ use App\Http\Livewire\LaravelExamples\UserManagement;
 use App\Http\Controllers\CalenderController;
 use Illuminate\Http\Request;
 
-Route::get('/', function() {
-    return redirect('/login');
-});
+
 
 Route::get('/sign-up', SignUp::class)->name('sign-up');
-Route::get('/login', Login::class)->name('login');
+Route::get('/', Login::class)->name('login');
 
 Route::get('/login/forgot-password', ForgotPassword::class)->name('forgot-password');
 
